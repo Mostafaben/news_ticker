@@ -4,6 +4,10 @@
   onmouseup="handleMouseLeft(event)"
   onmousemove="handleMouseMove(event)"
 >
+  <div class="news-header">
+    <img src="./img_actus_rss.jpg" alt="img">
+    <p>Dernières Procédures Signées (30) :</p>
+  </div>
   <div class="hmove" id="hmove" onmousedown="handleMouseDown(event)">
     <p class="hitem">
       <b class="DateSignature">11-03-12</b>Lorem ipsum dolor sit amet,
@@ -67,12 +71,30 @@
     /* HIDE SCROLL BAR */
     background: whitesmoke;
     padding: 16px;
-    position: fixed;
-    bottom: 0px;
+    position: relative;
+    /* bottom: 0px;
     left: 0px;
-    right: 0px;
+    right: 0px; */
     cursor: grab;
   }
+
+  .news-header {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    z-index: 2;
+    background-color: white;
+    padding: 0px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+ .news-header img {
+   margin-right: 16px;
+ }
+
   /* (B) MOVING TICKER WRAPPER */
 
   .hmove {
