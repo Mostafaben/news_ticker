@@ -5,7 +5,7 @@
   onmousemove="handleMouseMove(event)"
 >
   <div class="news-header">
-    <img src="./img_actus_rss.jpg" alt="img">
+    <img src="./img_actus_rss.jpg" alt="img" />
     <p>Dernières Procédures Signées (30) :</p>
   </div>
   <div class="hmove" id="hmove" onmousedown="handleMouseDown(event)">
@@ -55,7 +55,8 @@
   }
 
   :root {
-    --staring-position: 100%;
+    --transition-staring-position: 100%;
+    --transition-ending-position: 100%;
     --ending-position: -100%;
   }
 
@@ -91,9 +92,9 @@
     align-items: center;
   }
 
- .news-header img {
-   margin-right: 16px;
- }
+  .news-header img {
+    margin-right: 16px;
+  }
 
   /* (B) MOVING TICKER WRAPPER */
 
@@ -130,9 +131,21 @@
     margin-right: 16px;
   }
 
+  @keyframes animate-ticker-once {
+    0% {
+    }
+    100% {
+      transform: translate3d(var(--transition-ending-position), 0, 0);
+    }
+  }
+
   .hmove {
     animation: tickerh linear 35s infinite;
     transition-timing-function: linear;
+  }
+
+  .hmove:hover {
+    animation-play-state: paused !important;
   }
 </style>
 
@@ -250,8 +263,13 @@
 
   // restart the animation after the drag ends
   const setupTickerAnimation = (element, duration, animationDuration) => {
-    element.style.transitionDuration = `${duration}s`;
-    element.style.transform = `translate3d(-${element.scrollWidth}px,0,0)`;
+    // element.style.transitionDuration = `${duration}s`;
+    document.documentElement.style.setProperty(
+      "--transition-ending-position",
+      `-${element.scrollWidth}px`
+    );
+    element.style.animation = `animate-ticker-once linear ${duration}s`;
+    // element.style.transform = `translate3d(-${element.scrollWidth}px,0,0)`;
     timeOutIndex = setTimeout(() => {
       element.style.animation = `tickerh linear ${animationDuration}s infinite`;
       changeAnimationState(element, ANIMATION_STATES.run);
