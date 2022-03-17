@@ -183,7 +183,7 @@
   let timeOutIndex = 0;
 
   // handle mouse down event
-  const handleMouseDown = (e) => {
+  function handleMouseDown(e){
     // set mouse state to down state
     mouseState = MOUSE_STATES.mouseDown;
 
@@ -204,7 +204,7 @@
   };
 
   // handle mouse move event
-  const handleMouseMove = (e) => {
+  function handleMouseMove(e){
     // if the mouse isnt down than skip
     if (mouseState == MOUSE_STATES.mouseLeft) return;
 
@@ -216,7 +216,7 @@
   };
 
   // handle mouse leave  event
-  const handleMouseLeft = (e) => {
+  function handleMouseLeft(e){
     // if the mouse isnt down than skip
     if (mouseState == MOUSE_STATES.mouseLeft) return;
 
@@ -235,12 +235,12 @@
     setupTickerAnimation(tickerh, duration, ANIMATION_DURATION);
   };
 
-  const changeAnimationState = (element, state) => {
+  function changeAnimationState(element, state){
     element.style.animationPlayState = state;
   };
 
   // calculate the time left for the previous animation
-  const animationLeftTiming = (element, animationDuration, position) => {
+  function animationLeftTiming(element, animationDuration, position){
     let duration = 0;
     if (position > 0) {
       duration =
@@ -255,14 +255,14 @@
   };
 
   // get ticker current x coordinates
-  const getTickerLastPosition = (element) => {
+  function getTickerLastPosition(element){
     const style = window.getComputedStyle(element);
     const matrix = new WebKitCSSMatrix(style.webkitTransform);
     return matrix.m41;
   };
 
   // restart the animation after the drag ends
-  const setupTickerAnimation = (element, duration, animationDuration) => {
+  function setupTickerAnimation(element, duration, animationDuration){
     // element.style.transitionDuration = `${duration}s`;
     document.documentElement.style.setProperty(
       "--transition-ending-position",
@@ -270,7 +270,7 @@
     );
     element.style.animation = `animate-ticker-once linear ${duration}s`;
     // element.style.transform = `translate3d(-${element.scrollWidth}px,0,0)`;
-    timeOutIndex = setTimeout(() => {
+    timeOutIndex = setTimeout(function(){
       element.style.animation = `tickerh linear ${animationDuration}s infinite`;
       changeAnimationState(element, ANIMATION_STATES.run);
     }, duration * 1000);
